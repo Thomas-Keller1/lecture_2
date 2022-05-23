@@ -1,0 +1,40 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  mysql:
+    ports:
+      - "23306:3306"
+    expose:
+      - 3306
+    container_name: cddb_mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=quintor_pw
+      - MYSQL_DATABASE=cddb_quintor
+      - MYSQL_USER=cddb_quintor
+      - MYSQL_PASSWORD=quintor_pw
+    volumes:
+      - /mysql/:/usr/lib/mysql/
+    image: 'mysql:5.6'
+
+  java-rest:
+    ports:
+      - "28080:8080"
+    expose:
+      - 8080
+    container_name: cddb_backend
+    links:
+      - "mysql"
+    depends_on:
+      - "mysql"
+    image: 'java-rest:1.0'
+
+  angular-fe:
+    ports:
+      - '20080:80'
+    expose:
+      - 80
+    container_name: cddb_frontend
+    links:
+      - "java-rest"
+    depends_on:
+      - "java-rest"
+    image: 'angular-fe:1.0'
