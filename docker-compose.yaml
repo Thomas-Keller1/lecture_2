@@ -5,7 +5,7 @@ services:
       - "23306:3306"
     expose:
       - 3306
-    container_name: cddb_mysql
+    container_name: mysql
     environment:
       - MYSQL_ROOT_PASSWORD=quintor_pw
       - MYSQL_DATABASE=cddb_quintor
@@ -16,6 +16,7 @@ services:
     image: 'mysql:5.6'
 
   java-rest:
+    build: ./backend
     ports:
       - "28080:8080"
     expose:
@@ -28,6 +29,7 @@ services:
     image: 'java-rest:1.0'
 
   angular-fe:
+    build: ./frontend
     ports:
       - '20080:80'
     expose:
