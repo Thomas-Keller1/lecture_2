@@ -1,5 +1,8 @@
 version: "3.9"  # optional since v1.27.0
 services:
+  ubuntu:
+    build: ubuntu 
+    container_name: ubuntu
   mysql:
     ports:
       - "23306:3306"
@@ -12,16 +15,17 @@ services:
       - MYSQL_USER=cddb_quintor
       - MYSQL_PASSWORD=quintor_pw
     volumes:
-      - /mysql/:/usr/lib/mysql/
+      - mysql_data:/var/lib/mysql
+
     image: 'mysql:5.6'
 
   java-rest:
+    container_name: java-rest
     build: ./backend
     ports:
       - "28080:8080"
     expose:
       - 8080
-    container_name: cddb_backend
     links:
       - "mysql"
     depends_on:
@@ -40,3 +44,6 @@ services:
     depends_on:
       - "java-rest"
     image: 'angular-fe:1.0'
+
+volumes:
+  mysql_data:
