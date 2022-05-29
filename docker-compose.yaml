@@ -5,9 +5,11 @@ services:
     container_name: ubuntu
   mysql:
     ports:
-      - "23306:3306"
-    expose:
-      - 3306
+      - target: 3306
+        host_ip: 127.0.0.1
+        published: 23306
+        protocol: tcp
+        mode: host
     container_name: mysql
     environment:
       - MYSQL_ROOT_PASSWORD=quintor_pw
@@ -22,6 +24,7 @@ services:
   java-rest:
     container_name: java-rest
     build: ./backend
+    image: 'java-rest:1.0'    
     ports:
       - "28080:8080"
     expose:
@@ -30,14 +33,12 @@ services:
       - "mysql"
     depends_on:
       - "mysql"
-    image: 'java-rest:1.0'
+
 
   angular-fe:
     build: ./frontend
     ports:
       - '20080:80'
-    expose:
-      - 80
     container_name: cddb_frontend
     links:
       - "java-rest"

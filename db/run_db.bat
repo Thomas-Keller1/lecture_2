@@ -1,2 +1,1 @@
-docker run -p23306:3306 --name="cddb_mysql" -e MYSQL_ROOT_PASSWORD=quintor_pw -e MYSQL_DATABASE=cddb_quintor -e MYSQL_USER=cddb_quintor -e MYSQL_PASSWORD=quintor_pw -v /mysql/:/usr/lib/mysql/ mysql:5.6
-PAUSE
+docker run -d -p 23306:3306 --name="mysql" -e MYSQL_ROOT_PASSWORD=quintor_pw -e MYSQL_DATABASE=cddb_quintor -e MYSQL_USER=cddb_quintor -e MYSQL_PASSWORD=quintor_pw -v my_sql_data:/usr/lib/mysql/ mysql:5.6
