@@ -1,0 +1,1 @@
+Get-ChildItem -Recurse -File -Path .\*docker* | Where-Object {$_.Name -inotlike '*.ps1'} | ForEach-Object {"`r`n*** $($_.Directory.Name)/$($_.Name) ***`r`n";Get-Content $_.FullName}
