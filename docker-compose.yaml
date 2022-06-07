@@ -1,8 +1,8 @@
 version: "3.9"  # optional since v1.27.0
 services:
-  ubuntu:
-    build: ubuntu 
-    container_name: ubuntu
+  # ubuntu:
+  #   build: ubuntu 
+  #   container_name: ubuntu
   mysql:
     ports:
       - target: 3306
@@ -24,7 +24,6 @@ services:
   java-rest:
     container_name: cddb_backend
     build: ./backend
-    image: 'java-rest:1.0'    
     ports:
       - "28080:8080"
     links:
