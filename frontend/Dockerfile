@@ -1,9 +1,7 @@
-FROM nginx:latest
+FROM nginx:alpine
 
 EXPOSE 80
-WORKDIR /usr/share/nginx/html
-COPY /frontend/src ./
-WORKDIR /usr/share/nginx/nginx.conf
-COPY /frontend/resources/nginx.conf ./
+COPY /frontend/src /usr/share/nginx/html
+COPY /frontend/resources/nginx.conf /usr/share/nginx/nginx.conf
 
 CMD ["nginx", "-g", "daemon off;"]

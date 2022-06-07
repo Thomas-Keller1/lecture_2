@@ -17,18 +17,16 @@ services:
       - MYSQL_USER=cddb_quintor
       - MYSQL_PASSWORD=quintor_pw
     volumes:
-      - mysql_data:/var/lib/mysql
+      - .\data:/var/lib/mysql
 
     image: 'mysql:5.6'
 
   java-rest:
-    container_name: java-rest
+    container_name: cddb_backend
     build: ./backend
     image: 'java-rest:1.0'    
     ports:
       - "28080:8080"
-    expose:
-      - 8080
     links:
       - "mysql"
     depends_on:
@@ -41,10 +39,8 @@ services:
       - '20080:80'
     container_name: cddb_frontend
     links:
-      - "java-rest"
+      - "java-rest:cddb_backend"
     depends_on:
       - "java-rest"
     image: 'angular-fe:1.0'
 
-volumes:
-  mysql_data:
